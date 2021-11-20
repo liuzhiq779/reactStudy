@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+// eslint-disable-next-line
 import App from './App';
+import TodoList from './TodoList'
+// eslint-disable-next-line no-unused-vars
+import TodoItem from './TodoItem';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+   { /*<App /> */}
+    <TodoList/>
   </React.StrictMode>,
   document.getElementById('root')
 );
