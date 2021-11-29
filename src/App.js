@@ -2,8 +2,10 @@ import React,{Component} from "react";
 import 'antd/dist/antd.css'
 import { Input,Button,List } from 'antd'
 import store from './store/index';
+//import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM} from './store/actionTypes'
+import { getAddItemAction, getInputChangeAction,getDeleteItemAction } from './store/actionCreators'
 
- 
+ //纯函数就是有固定的输入就有固定的输出，而且不会有任何的副作用
 class readxStusy extends Component {
     constructor(props){
       super(props);
@@ -38,11 +40,12 @@ class readxStusy extends Component {
         ) 
     }
     handleInputChange(e){
-        console.log(e.target.value)
-        const action = {
-            type: 'change_input_value',
-            value: e.target.value
-        }
+       // console.log(e.target.value)
+       // const action = {
+        //    type: CHANGE_INPUT_VALUE,
+          //  value: e.target.value
+       // };
+        const action = getInputChangeAction(e.target.value);
         store.dispatch(action);
     }
 
@@ -51,17 +54,19 @@ class readxStusy extends Component {
     }
 
    handleBtnClick(){
-       const action = {
-           type:'add_todo_item'
-       }
+       //const action = {
+        //   type: ADD_TODO_ITEM
+      // }
+      const action = getAddItemAction()
        store.dispatch(action);
    }
 
    handleItemDelete(index){
-     const action = {
-         type: 'delete_todo_item',
-         index
-     }
+     //const action = {
+   //      type: DELETE_TODO_ITEM,
+     //    index
+    // }
+    const action = getDeleteItemAction()
      store.dispatch(action)
   }
 }
