@@ -1,9 +1,10 @@
 import React,{Component} from "react";
 import 'antd/dist/antd.css'
-import { Input,Button,List } from 'antd'
+//import { Input,Button,List } from 'antd'
 import store from './store/index';
 //import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM} from './store/actionTypes'
 import { getAddItemAction, getInputChangeAction,getDeleteItemAction } from './store/actionCreators'
+import TodoListUI from './TodoListUI'
 
  //纯函数就是有固定的输入就有固定的输出，而且不会有任何的副作用
 class readxStusy extends Component {
@@ -13,30 +14,45 @@ class readxStusy extends Component {
       this.handleInputChange = this.handleInputChange.bind(this);
       this.handleStoreChange = this.handleStoreChange.bind(this);
       this.handleBtnClick = this.handleBtnClick.bind(this);
+      //修改this把值传到子组件里面去
+      this.handleItemDelete = this.handleItemDelete.bind(this)
       store.subscribe(this.handleStoreChange)
     }
 
 
     render() {
         return (
-            <div style={{marginTop:'10px',marginLeft:'10px'}}>
-                <div>
-                    <Input 
-                    value={this.state.inputValue}
-                     placeholder='todo info' 
-                    style={{width: 300,marginRight: '10px'}}
-                    onChange={this.handleInputChange}
-                    />
-                    <Button type="primary" onClick={this.handleBtnClick}>提交</Button>
-                    <List
-                        style={{marginTop:'10px',width:'800px'}}
-                        size="small"
-                        bordered
-                        dataSource={this.state.list}
-                        renderItem={(item,index) => <List.Item  onClick = {this.handleItemDelete.bind(this,index)}>{item}</List.Item>}
-                    />
-                </div>
-            </div>
+            //把这里的值通过方法的形式传给子组件
+           <TodoListUI   
+           inputValue={this.state.inputValue} 
+             //子组件里面没有handleInputChange这个方法只能通过父组件来传值
+             handleInputChange = {this.handleInputChange}
+             //这里也是一样
+             handleBtnClick = {this.handleBtnClick}
+             //把list也传给子组件
+             list = {this.state.list}
+             //这个方法也传递到子组件
+             handleItemDelete = {this.handleItemDelete}
+           />
+           //容器组件只负责专区，ui组件负责渲染页面，所以把这里的代码移到UI里面去
+           //<div style={{marginTop:'10px',marginLeft:'10px'}}>
+        //<div>
+         //   <Input 
+           // value={this.state.inputValue}
+          //   placeholder='todo info' 
+          //  style={{width: 300,marginRight: '10px'}}
+           // onChange={this.handleInputChange}
+          //  />
+          //  <Button type="primary" onClick={this.handleBtnClick}>提交</Button>
+          //  <List
+           //     style={{marginTop:'10px',width:'800px'}}
+            //    size="small"
+              //  bordered
+             //   dataSource={this.state.list}
+            //    renderItem={(item,index) => <List.Item  onClick = {this.handleItemDelete.bind(this,index)}>{item}</List.Item>}
+         //   />
+       // </div>
+   // </div>
         ) 
     }
     handleInputChange(e){
