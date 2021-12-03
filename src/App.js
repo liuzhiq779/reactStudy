@@ -3,8 +3,10 @@ import 'antd/dist/antd.css'
 //import { Input,Button,List } from 'antd'
 import store from './store/index';
 //import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM} from './store/actionTypes'
-import { getAddItemAction, getInputChangeAction,getDeleteItemAction } from './store/actionCreators'
-import TodoListUI from './TodoListUI'
+import { getAddItemAction, getInputChangeAction,getDeleteItemAction,initListAction } from './store/actionCreators'
+import TodoListUI from './TodoList';
+import axios from "axios"
+
 
  //纯函数就是有固定的输入就有固定的输出，而且不会有任何的副作用
 class readxStusy extends Component {
@@ -55,6 +57,10 @@ class readxStusy extends Component {
    // </div>
         ) 
     }
+
+
+   
+
     handleInputChange(e){
        // console.log(e.target.value)
        // const action = {
@@ -63,6 +69,14 @@ class readxStusy extends Component {
        // };
         const action = getInputChangeAction(e.target.value);
         store.dispatch(action);
+    }
+
+    componentDidMount(){
+        axios.get('/list.json').then((res)=>{
+            const data = res.data;
+            const  action = initListAction(data);
+            store.dispatch(action);
+        })    
     }
 
     handleStoreChange(){
