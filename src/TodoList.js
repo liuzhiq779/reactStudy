@@ -1,8 +1,7 @@
 // eslint-disable-next-line
 import React,{ Component } from "react";
 import { Input,Button,List } from 'antd';
-
-
+ 
 //这是无状态组件
 const TodoListUI = (props)=>{
       return (
@@ -15,7 +14,7 @@ const TodoListUI = (props)=>{
          placeholder='todo info' 
         style={{width: 300,marginRight: '10px'}}
        // onChange={this.handleInputChange} 这个组建里面没有这个方法所以这样写是会报错的
-        //通过这个形式接受从父组件传递过来的值
+         //通过这个形式接受从父组件传递过来的值
         onChange={props.handleInputChange}
         />    
         <Button 

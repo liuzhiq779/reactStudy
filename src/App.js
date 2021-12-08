@@ -3,7 +3,11 @@ import 'antd/dist/antd.css'
 //import { Input,Button,List } from 'antd'
 import store from './store/index';
 //import {CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM} from './store/actionTypes'
-import { getAddItemAction, getInputChangeAction,getDeleteItemAction,initListAction } from './store/actionCreators'
+//使用的redux-thunk方法
+//import { getTodoList,getAddItemAction, getInputChangeAction,getDeleteItemAction, } from './store/actionCreators'
+//initListAction
+//redux-sage
+import {getInitList, getAddItemAction, getInputChangeAction,getDeleteItemAction, } from './store/actionCreators'
 import TodoListUI from './TodoList';
 import axios from "axios"
 
@@ -72,11 +76,18 @@ class readxStusy extends Component {
     }
 
     componentDidMount(){
-        axios.get('/list.json').then((res)=>{
-            const data = res.data;
-            const  action = initListAction(data);
-            store.dispatch(action);
-        })    
+      //可以把这个请求用Redux-thunk和Redux-saga中间件来实现
+        // axios.get('/list.json').then((res)=>{
+        //     const data = res.data;
+        //     const  action = initListAction(data);
+        //     store.dispatch(action);
+        // })   
+        //使用Redux-thunk中间件
+     // const action =  getTodoList();
+      //store.dispatch(action);
+     const action = getInitList();
+     store.dispatch(action);
+    // console.log(action)
     }
 
     handleStoreChange(){
